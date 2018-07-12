@@ -22,7 +22,8 @@ export class PdfViewComponent implements OnInit {
 
   pdf: any;
 
-  constructor(private pdfHandlerService: PdfHandlerService,
+  constructor(
+    private pdfHandlerService: PdfHandlerService,
     private sanitizer: DomSanitizer
   ) {
   }
@@ -41,7 +42,6 @@ export class PdfViewComponent implements OnInit {
   }
 
   setInitialProof() {
-    // console.log(this.viewData);
     this.pdfHandlerService.setPdfDocObjects(this.viewData[1]).then((pdf) => {
       this.pdf = pdf;
       this.totalPages = this.pdf.pdfInfo.numPages;
