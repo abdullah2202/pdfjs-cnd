@@ -1,14 +1,91 @@
-<span>Page {{pageNumber}} of {{totalPages}}</span>
 
-<div class="container">
-  <div id="page_1"></div>
-  <canvas id="main-canvas"></canvas>
+<div class="select-app" *ngIf="view!='printview'">
+
+<!-- <span>Page {{pageNumber}} of {{totalPages}}</span> -->
+<span class="info">({{posX}}, {{posY}})</span>
+<span class="info">(Total Pages: {{totalPages}})</span>
+<button (click)="cutLabel()">Add Label</button>
+<button *ngIf="totalPages>1" 
+    (click)="addAllLabels()">Add All Labels</button>
+  <!-- <button (click)="uploadPDF()">Upload</button>  -->
+  <label for="file-to-upload" class="upload-label">Select PDF</label>
+  <input type="file" 
+         id="file-to-upload" 
+         accept="application/pdf"
+         (change)="uploadPDF($event)"
+         multiple
+         style="display: none;"
+  />
+<button (click)="print()">Print</button>
+
+  <button *ngIf="totalPages>1" 
+          (click)="changePagePrevious()">Prev</button>
+  <span *ngIf="totalPages>1" class="info">{{pageNumber}}</span>
+  <button *ngIf="totalPages>1"
+          (click)="changePageNext()">Next</button>
+  
+
+
+
+
+<div class="flex">
+  
+  <div class="container">
+    
+    <canvas id="main-canvas" 
+            (mousemove)="mouseOver($event)"
+            class="hidden-canvas">
+    </canvas>
+
+  </div>
+
+
+  <div class="container labellist">
+    <span>{{labelList.length}} Labels</span>
+    <ul class="label-list">
+      <li *ngFor="let label of labelList; let i = index"
+          (click)="showOnCrop(i)"
+      >
+        <span class="remove" (click)="removeFromList(i)">Remove</span>
+        <img [id]="'label_'+i" [src]="label"/>
+      </li>
+    </ul>
+  </div>
+
+
+
+  <div class="container">
+    
+    <canvas id="second-canvas" class="crop-canvas"></canvas>
+
+  </div>
+
+  
+
+
+
 </div>
 
-<div>
-  <button (click)="changePagePrevious()">Previous </button>
-  <button (click)="changePageNext()">Next </button>
+
+</div>
+<!-- END Select-app -->
+
+
+
+<!-- Begin print view -->
+<div class="print-view"
+     *ngIf="view=='printview'"
+>
+
+<div *ngFor="let label of labelList"
+    class="print_label"
+>
+<img [src]="label" />
 </div>
 
 
+</div>
 
+<div class="back-button" *ngIf="view=='printview'" (click)="print()">
+  Back
+</div>

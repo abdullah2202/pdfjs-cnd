@@ -10,11 +10,15 @@ export class PdfHandlerService {
   constructor() {
   }
 
-  setPdfDocObjects(data) {
+  setPdfDocObjects(data,isBlob = false) {
     let self = this;
+    self.url = '';
     let docId = data.docId;
     return new Promise((resolve, reject) => {
-      self.url = '/assets/' + data.url;
+      if(!isBlob){
+        self.url = '/assets/';
+      }
+      self.url += data.url;
       PDFJS.getDocument(this.url).then((_pdfDoc) => {
         self.pdfDoc[docId] = _pdfDoc;
         resolve(_pdfDoc);

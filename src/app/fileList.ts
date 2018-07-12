@@ -1,5 +1,5 @@
 export const fileData: any = {
-  "user":"ashishYadav",
+  "user": "someuser",
   "readOnly":false,
   "commentEditable":false,
   "docList":[
@@ -9,7 +9,13 @@ export const fileData: any = {
       "url":"files/The Intelligent Investor - BENJAMIN GRAHAM.pdf",
       "docId":"77265",
       "pages": [  ],
-
+    },
+    {
+      "type":"PDF",
+      "name":"test.pdf",
+      "url":"files/test.pdf",
+      "docId":"0001",
+      "pages": [  ],
     }
   ]
 };
